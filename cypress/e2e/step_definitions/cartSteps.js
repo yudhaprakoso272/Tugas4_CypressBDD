@@ -13,6 +13,19 @@ When("I add {string} to the cart", (product) => {
   cy.contains(product).parents(".inventory_item").find("button").click();
 });
 
-Then("the cart should show 1 item", () => {
+When("The cart should show 1 item", () => {
   cy.get(".shopping_cart_badge").should("have.text", "1");
+});
+
+Then("Check product {string} on cart", (product) => {
+  cy.get('[data-test="shopping-cart-link"]').click();
+  cy.get('[data-test="inventory-item"]').contains(product);
+});
+
+When("I click cart button", () => {
+  cy.get('[data-test="shopping-cart-link"]').click();
+});
+
+Then("Remove product {string} on cart", (product) => {
+  cy.contains(product).parents(".cart_item").find("button").click();
 });
